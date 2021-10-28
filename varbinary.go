@@ -1,10 +1,10 @@
 package main
 
 import (
-    // "log"
+    "log"
     // "context"
     // "encoding/binary"
-    // "github.com/tarantool/go-tarantool"
+    "github.com/tarantool/go-tarantool"
     // "github.com/viciious/go-tarantool"
     // "github.com/FZambia/tarantool"
 )
@@ -41,36 +41,57 @@ import (
 //
 // bintuple_insert(box.space.testvarbin, {0xDE, 0xAD, 0xBE, 0xAF})
 
-
-// func TestVarbinaryTarantool(uri string, user string) {
-//     opts := tarantool.Opts{ User: user }
-//     conn, err := tarantool.Connect(uri, opts)
-
-//     if err != nil {
-//         log.Fatalf("Connection refused:", err)
-//     }
-
-//     resp, err := conn.Ping()
-//     log.Println(resp.Code)
-//     log.Println(resp.Data)
-//     log.Println(err)
-
-//     resp1, err1 := conn.Eval("return box.space.testvarbin:select{}", []interface{}{})
-
-//     log.Println("Error", err1)
-//     log.Println("Code", resp1.Code)
-//     log.Println("Data", resp1.Data)
-
-//     buf := make([]byte, 4)
-//     binary.BigEndian.PutUint16(buf[0:], 0xa22c)
-//     binary.BigEndian.PutUint16(buf[2:], 0x04af)
-
-//     resp2, err2 := conn.Insert("testvarbin", []interface{}{buf})
-
-//     log.Println("Error", err2)
-//     log.Println("Code", resp2.Code)
-//     log.Println("Data", resp2.Data)
+// type TupleTarantool struct {
+//     pk []byte
 // }
+
+type TupleTarantool struct {
+    id uint
+    data uint
+    dasd uint
+}
+
+func TestVarbinaryTarantool(uri string, user string) {
+    opts := tarantool.Opts{ User: user }
+    conn, err := tarantool.Connect(uri, opts)
+
+    if err != nil {
+        log.Fatalf("Connection refused:", err)
+    }
+
+    // resp, err := conn.Ping()
+    // log.Println(resp.Code)
+    // log.Println(resp.Data)
+    // log.Println(err)
+
+    // resp1, err1 := conn.Eval("return box.space.testvarbin:select{}", []interface{}{})
+
+    // log.Println("Error", err1)
+    // log.Println("Code", resp1.Code)
+    // log.Println("Data", resp1.Data)
+
+    // buf := make([]byte, 4)
+    // binary.BigEndian.PutUint16(buf[0:], 0xa22c)
+    // binary.BigEndian.PutUint16(buf[2:], 0x04af)
+    // log.Println("Binary buffer", buf)
+
+    // resp2, err2 := conn.Insert("testvarbin", []interface{}{buf})
+
+    // log.Println("Error", err2)
+    // log.Println("Code", resp2.Code)
+    // log.Println("Data", resp2.Data)
+
+    // var tuples []TupleTarantool
+    // err3 := conn.SelectTyped("testvarbin", "pk", 0, 1, tarantool.IterEq, []interface{}{ buf }, &tuples)
+    // log.Println("Error", err3)
+    // log.Println("Tuples", tuples)
+
+    var tuple TupleTarantool
+    err3 := conn.GetTyped("testint", "pk", []interface{}{ 1 }, &tuple)
+    log.Println("Error", err3)
+    log.Println("Tuples", tuple)
+}
+
 
 // func TestVarbinaryViciious(uri string, user string) {
 //     opts := tarantool.Options{User: user}
@@ -102,6 +123,11 @@ import (
 //     log.Println("Data", resp2.Data)
 // }
 
+
+// type TupleFZambia struct {
+//     varbinary []byte
+// }
+
 // func TestVarbinaryFZambia(uri string, user string) {
 //     opts := tarantool.Opts{ User: user }
 //     conn, errc := tarantool.Connect(uri, opts)
@@ -109,25 +135,41 @@ import (
 //         log.Fatalf("Connection refused: %v", errc)
 //     }
 
-//     resp, err := conn.Exec(tarantool.Ping())
+    // resp, err := conn.Exec(tarantool.Ping())
 
-//     log.Println("Ping Code", resp.Code)
-//     log.Println("Ping Data", resp.Data)
-//     log.Println("Ping Error", err)
+    // log.Println("Ping Code", resp.Code)
+    // log.Println("Ping Data", resp.Data)
+    // log.Println("Ping Error", err)
 
-//     resp1, err1 := conn.Exec(tarantool.Eval("return box.space.testvarbin:select{}", []interface{}{}))
+    // resp1, err1 := conn.Exec(tarantool.Eval("return box.space.testvarbin:select{}", []interface{}{}))
 
-//     log.Println("Error", err1)
-//     log.Println("Code", resp1.Code)
-//     log.Println("Data", resp1.Data)
+    // log.Println("Error", err1)
+    // log.Println("Code", resp1.Code)
+    // log.Println("Data", resp1.Data)
 
-//     buf := make([]byte, 4)
-//     binary.BigEndian.PutUint16(buf[0:], 0xa25c)
-//     binary.BigEndian.PutUint16(buf[2:], 0x04af)
+    // buf := make([]byte, 4)
+    // binary.BigEndian.PutUint16(buf[0:], 0xa25c)
+    // binary.BigEndian.PutUint16(buf[2:], 0x04af)
+    // log.Println("Binary buffer", buf)
 
-//     resp2, err2 := conn.Exec(tarantool.Insert("testvarbin", []interface{}{ buf }))
+    // // resp2, err2 := conn.Exec(tarantool.Insert("testvarbin", []interface{}{ buf }))
 
-//     log.Println("Error", err2)
-//     log.Println("Code", resp2.Code)
-//     log.Println("Data", resp2.Data)
+    // // log.Println("Error", err2)
+    // // log.Println("Code", resp2.Code)
+    // // log.Println("Data", resp2.Data)
+
+    // fails
+    // // var tuples []TupleFZambia
+    // // err3 := conn.ExecTypedContext(
+    // //     context.Background(), 
+    // //     tarantool.Select("testvarbin", "pk", 0, 1, tarantool.IterEq, []interface{}{ buf }), &tuples)
+
+    // // log.Println("Error", err3)
+    // // log.Println("Tuples", tuples)
+
+    // resp3, err3 := conn.Exec(tarantool.Select("testvarbin", "pk", 0, 1, tarantool.IterEq, []interface{}{ buf }))
+
+    // log.Println("Error", err3)
+    // log.Println("Code", resp3.Code)
+    // log.Println("Data", resp3.Data)
 // }
