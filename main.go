@@ -6,5 +6,9 @@ func main() {
 
     // TestVarbinaryTarantool(uri, user)
     // TestVarbinaryViciious(uri, user)
-    TestVarbinaryFZambia(uri, user)
+    // TestVarbinaryFZambia(uri, user)
+
+    // TestUUIDTarantool(uri, user)
+    // TestUUIDViciious(uri, user)
+    // TestUUIDFZambia(uri, user)
 }

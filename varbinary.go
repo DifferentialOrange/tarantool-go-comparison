@@ -1,12 +1,12 @@
 package main
 
 import (
-    "log"
+    // "log"
     // "context"
-    "encoding/binary"
+    // "encoding/binary"
     // "github.com/tarantool/go-tarantool"
     // "github.com/viciious/go-tarantool"
-    "github.com/FZambia/tarantool"
+    // "github.com/FZambia/tarantool"
 )
 
 // tarantool
@@ -102,32 +102,32 @@ import (
 //     log.Println("Data", resp2.Data)
 // }
 
-func TestVarbinaryFZambia(uri string, user string) {
-    opts := tarantool.Opts{ User: user }
-    conn, errc := tarantool.Connect(uri, opts)
-    if errc != nil {
-        log.Fatalf("Connection refused: %v", errc)
-    }
+// func TestVarbinaryFZambia(uri string, user string) {
+//     opts := tarantool.Opts{ User: user }
+//     conn, errc := tarantool.Connect(uri, opts)
+//     if errc != nil {
+//         log.Fatalf("Connection refused: %v", errc)
+//     }
 
-    resp, err := conn.Exec(tarantool.Ping())
+//     resp, err := conn.Exec(tarantool.Ping())
 
-    log.Println("Ping Code", resp.Code)
-    log.Println("Ping Data", resp.Data)
-    log.Println("Ping Error", err)
+//     log.Println("Ping Code", resp.Code)
+//     log.Println("Ping Data", resp.Data)
+//     log.Println("Ping Error", err)
 
-    resp1, err1 := conn.Exec(tarantool.Eval("return box.space.testvarbin:select{}", []interface{}{}))
+//     resp1, err1 := conn.Exec(tarantool.Eval("return box.space.testvarbin:select{}", []interface{}{}))
 
-    log.Println("Error", err1)
-    log.Println("Code", resp1.Code)
-    log.Println("Data", resp1.Data)
+//     log.Println("Error", err1)
+//     log.Println("Code", resp1.Code)
+//     log.Println("Data", resp1.Data)
 
-    buf := make([]byte, 4)
-    binary.BigEndian.PutUint16(buf[0:], 0xa25c)
-    binary.BigEndian.PutUint16(buf[2:], 0x04af)
+//     buf := make([]byte, 4)
+//     binary.BigEndian.PutUint16(buf[0:], 0xa25c)
+//     binary.BigEndian.PutUint16(buf[2:], 0x04af)
 
-    resp2, err2 := conn.Exec(tarantool.Insert("testvarbin", []interface{}{ buf }))
+//     resp2, err2 := conn.Exec(tarantool.Insert("testvarbin", []interface{}{ buf }))
 
-    log.Println("Error", err2)
-    log.Println("Code", resp2.Code)
-    log.Println("Data", resp2.Data)
-}
+//     log.Println("Error", err2)
+//     log.Println("Code", resp2.Code)
+//     log.Println("Data", resp2.Data)
+// }
