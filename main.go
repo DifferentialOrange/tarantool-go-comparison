@@ -37,9 +37,9 @@ import (
 // end
 //
 // bintuple_insert(box.space.testvarbin, {0xDE, 0xAD, 0xBE, 0xAF})
-func testVarbinaryTarantool() {
-    opts := tarantool.Opts{ User: "guest" }
-    conn, err := tarantool.Connect("127.0.0.1:3401", opts)
+func testVarbinaryTarantool(uri string, user string) {
+    opts := tarantool.Opts{ User: user }
+    conn, err := tarantool.Connect(uri, opts)
 
     if err != nil {
         log.Fatalf("Connection refused:", err)
@@ -68,5 +68,7 @@ func testVarbinaryTarantool() {
 }
 
 func main() {
-    testVarbinaryTarantool()
+    var uri string = "127.0.0.1:3401"
+    var user string = "guest"
+    testVarbinaryTarantool(uri, user)
 }
