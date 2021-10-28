@@ -2,10 +2,11 @@ package main
 
 import (
     "log"
-    "context"
+    // "context"
     "encoding/binary"
     // "github.com/tarantool/go-tarantool"
-    "github.com/viciious/go-tarantool"
+    // "github.com/viciious/go-tarantool"
+    "github.com/FZambia/tarantool"
 )
 
 // tarantool
@@ -69,33 +70,63 @@ import (
 //     log.Println("Data", resp2.Data)
 // }
 
-func testVarbinaryViciious(uri string, user string) {
-    opts := tarantool.Options{User: user}
-    conn, err := tarantool.Connect(uri, &opts)
+// func testVarbinaryViciious(uri string, user string) {
+//     opts := tarantool.Options{User: user}
+//     conn, err := tarantool.Connect(uri, &opts)
 
-    if err != nil {
-        log.Fatalf("Connection refused:", err.Error())
+//     if err != nil {
+//         log.Fatalf("Connection refused:", err.Error())
+//     }
+
+//     resp := conn.Exec(context.Background(), &tarantool.Ping{})
+//     log.Println("Error", resp.Error)
+//     log.Println("Data", resp.Data)
+
+//     expr := "return box.space.testvarbin:select{}"
+//     q := &tarantool.Eval{ Expression: expr }
+//     resp1 := conn.Exec(context.Background(), q)
+
+//     log.Println("Error", resp1.Error)
+//     log.Println("Data", resp1.Data)
+
+//     buf := make([]byte, 4)
+//     binary.BigEndian.PutUint16(buf[0:], 0xa23c)
+//     binary.BigEndian.PutUint16(buf[2:], 0x04af)
+
+//     query := &tarantool.Insert{Space: "testvarbin", Tuple: []interface{}{ buf }}
+//     resp2 := conn.Exec(context.Background(), query)
+
+//     log.Println("Error", resp2.Error)
+//     log.Println("Data", resp2.Data)
+// }
+
+func testVarbinaryFZambia(uri string, user string) {
+    opts := tarantool.Opts{ User: user }
+    conn, errc := tarantool.Connect(uri, opts)
+    if errc != nil {
+        log.Fatalf("Connection refused: %v", errc)
     }
 
-    resp := conn.Exec(context.Background(), &tarantool.Ping{})
-    log.Println("Error", resp.Error)
-    log.Println("Data", resp.Data)
+    resp, err := conn.Exec(tarantool.Ping())
 
-    expr := "return box.space.testvarbin:select{}"
-    q := &tarantool.Eval{ Expression: expr }
-    resp1 := conn.Exec(context.Background(), q)
+    log.Println("Ping Code", resp.Code)
+    log.Println("Ping Data", resp.Data)
+    log.Println("Ping Error", err)
 
-    log.Println("Error", resp1.Error)
+    resp1, err1 := conn.Exec(tarantool.Eval("return box.space.testvarbin:select{}", []interface{}{}))
+
+    log.Println("Error", err1)
+    log.Println("Code", resp1.Code)
     log.Println("Data", resp1.Data)
 
     buf := make([]byte, 4)
-    binary.BigEndian.PutUint16(buf[0:], 0xa23c)
+    binary.BigEndian.PutUint16(buf[0:], 0xa25c)
     binary.BigEndian.PutUint16(buf[2:], 0x04af)
 
-    query := &tarantool.Insert{Space: "testvarbin", Tuple: []interface{}{ buf }}
-    resp2 := conn.Exec(context.Background(), query)
+    resp2, err2 := conn.Exec(tarantool.Insert("testvarbin", []interface{}{ buf }))
 
-    log.Println("Error", resp2.Error)
+    log.Println("Error", err2)
+    log.Println("Code", resp2.Code)
     log.Println("Data", resp2.Data)
 }
 
@@ -103,6 +134,7 @@ func main() {
     var uri string = "127.0.0.1:3401"
     var user string = "guest"
 
-    //testVarbinaryTarantool(uri, user)
-    testVarbinaryViciious(uri, user)
+    // testVarbinaryTarantool(uri, user)
+    // testVarbinaryViciious(uri, user)
+    testVarbinaryFZambia(uri, user)
 }
