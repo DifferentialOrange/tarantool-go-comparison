@@ -19,9 +19,9 @@ package main
 //     TestSelectNilTarantool(uri, user, "testuuid")
 // }
 
-func TestUUIDViciious(uri string, user string) {
-    TestSelectNilViciious(uri, user, "testuuid")
-}
+// func TestUUIDViciious(uri string, user string) {
+//     TestSelectNilViciious(uri, user, "testuuid")
+// }
 
 // func TestUUIDFZambia(uri string, user string) {
 //     TestSelectNilFZambia(uri, user, "testuuid")

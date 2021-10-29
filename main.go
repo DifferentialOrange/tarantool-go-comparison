@@ -9,6 +9,10 @@ func main() {
     // TestVarbinaryFZambia(uri, user)
 
     // TestUUIDTarantool(uri, user)
-    TestUUIDViciious(uri, user)
+    // TestUUIDViciious(uri, user)
     // TestUUIDFZambia(uri, user)
+
+    // TestDecimalTarantool(uri, user)
+    TestDecimalViciious(uri, user)
+    // TestDecimalFZambia(uri, user)
 }

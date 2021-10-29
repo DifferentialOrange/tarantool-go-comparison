@@ -25,21 +25,21 @@ import (
 //     log.Println("Data", resp1.Data)
 // }
 
-func TestSelectNilViciious(uri string, user string, space string) {
-    opts := tarantool.Options{User: user}
-    conn, err := tarantool.Connect(uri, &opts)
+// func TestSelectNilViciious(uri string, user string, space string) {
+//     opts := tarantool.Options{User: user}
+//     conn, err := tarantool.Connect(uri, &opts)
 
-    if err != nil {
-        log.Fatalf("Connection refused:", err.Error())
-    }
+//     if err != nil {
+//         log.Fatalf("Connection refused:", err.Error())
+//     }
 
-    expr := fmt.Sprintf("return box.space.%s:select{}", space)
-    q := &tarantool.Eval{ Expression: expr }
-    resp1 := conn.Exec(context.Background(), q)
+//     expr := fmt.Sprintf("return box.space.%s:select{}", space)
+//     q := &tarantool.Eval{ Expression: expr }
+//     resp1 := conn.Exec(context.Background(), q)
 
-    log.Println("Error", resp1.Error)
-    log.Println("Data", resp1.Data)
-}
+//     log.Println("Error", resp1.Error)
+//     log.Println("Data", resp1.Data)
+// }
 
 // func TestSelectNilFZambia(uri string, user string, space string) {
 //     opts := tarantool.Opts{ User: user }
@@ -48,7 +48,7 @@ func TestSelectNilViciious(uri string, user string, space string) {
 //         log.Fatalf("Connection refused: %v", errc)
 //     }
 
-//     expr = fmt.Sprintf("return box.space.%s:select{}", space)
+//     expr := fmt.Sprintf("return box.space.%s:select{}", space)
 //     resp1, err1 := conn.Exec(tarantool.Eval(expr, []interface{}{}))
 
 //     log.Println("Error", err1)
