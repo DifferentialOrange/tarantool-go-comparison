@@ -13,6 +13,10 @@ func main() {
     // TestUUIDFZambia(uri, user)
 
     // TestDecimalTarantool(uri, user)
-    TestDecimalViciious(uri, user)
+    // TestDecimalViciious(uri, user)
     // TestDecimalFZambia(uri, user)
+
+    // TestBoxErrorTarantool(uri, user)
+    // TestBoxErrorViciious(uri, user)
+    TestBoxErrorFZambia(uri, user)
 }

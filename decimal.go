@@ -19,9 +19,9 @@ package main
 //     TestSelectNilTarantool(uri, user, "testdecimal")
 // }
 
-func TestDecimalViciious(uri string, user string) {
-    TestSelectNilViciious(uri, user, "testdecimal")
-}
+// func TestDecimalViciious(uri string, user string) {
+//     TestSelectNilViciious(uri, user, "testdecimal")
+// }
 
 // func TestDecimalFZambia(uri string, user string) {
 //     TestSelectNilFZambia(uri, user, "testdecimal")
