@@ -18,5 +18,9 @@ func main() {
 
     // TestBoxErrorTarantool(uri, user)
     // TestBoxErrorViciious(uri, user)
-    TestBoxErrorFZambia(uri, user)
+    // TestBoxErrorFZambia(uri, user)
+
+    // TestBoxSessionPushTarantool(uri, user)
+    // TestBoxSessionPushViciious(uri, user)
+    TestBoxSessionPushFZambia(uri, user)
 }
