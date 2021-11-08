@@ -1,12 +1,12 @@
 package main
 
 // import (
-    // "fmt"
-    // "log"
-    // "context"
-    // "github.com/tarantool/go-tarantool"
-    // "github.com/viciious/go-tarantool"
-    // "github.com/FZambia/tarantool"
+//     "fmt"
+//     "log"
+//     "context"
+//     // "github.com/tarantool/go-tarantool"
+//     // "github.com/viciious/go-tarantool"
+//     // "github.com/FZambia/tarantool"
 // )
 
 // func TestSelectNilTarantool(uri string, user string, space string) {
